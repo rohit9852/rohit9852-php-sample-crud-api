@@ -4,6 +4,7 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,18 @@ use App\Http\Controllers\ArticleController;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// for registration
+Route::post('register', [UserController::class, 'register']);
+
+// for login
+
+Route::post('login', [UserController::class, 'authenticate']);
+
+// for authenticated user
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('user', [UserController::class,'getAuthenticatedUser']);
 });
 
 // show list blogs articles

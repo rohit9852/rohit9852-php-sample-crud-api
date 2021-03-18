@@ -11,24 +11,24 @@ class ArticleController extends Controller
     //
     function DataSave(Request $req) {
         $blog = new Article();
-        $blog->title = $req ->title;
-        $blog->body = $req ->body;
+        $blog->title = $req->title;
+        $blog->body = $req->body;
         $blog = $blog->save();
         if($blog) {
-            return ["result"=>"Data save correctlly", "response code"=>"200 succefully"];
+            return response()->json('data save correctly', 200);
         } else {
-            return ["result"=>"data Failed for some reason", "response code"=>"500 internal error"];
+            return response()->json('data saving failed due smone reason', 500);
         }
     }
 
     function UpdateData(Request $req) {
-        $blog = Article :: find($req-> id);
+        $blog = Article :: find($req->id);
         $blog->body = $req->body;
         $blog = $blog->save();
         if($blog) {
-            return ["result"=>"Data update correctlly", "response code"=>"200 succefully"];
+            return response()->json('Data update correctly', 200);
         } else {
-            return ["result"=>"data Failed for some reason", "response code"=>"500 internal error"];
+            return response()->json('Dat failed for some reason', 500);
         }
     }
 
